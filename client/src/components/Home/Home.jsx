@@ -20,7 +20,7 @@ const Home = () => {
         >
           <VStack width={"full"} alignItems={["center", "flex-end"]}>
             <Heading children="HỌC HỎI TỪ CHUYÊN GIA" size={"2xl"} />
-            <Text children="Giá trị khóa học ở mức hợp lý" />
+            <Text textAlign={["center", "left"]} fontSize={"2xl"} fontFamily="cursive" children="Giá trị khóa học ở mức hợp lý" />
             <Link to="/courses">
               <Button size={"lg"} colorScheme="blue">
                 Khám phá ngay
