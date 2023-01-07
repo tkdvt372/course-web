@@ -1,5 +1,6 @@
 import React from 'react'
-import { Box, Button, Heading, HStack, Image, Link, Stack, Text, VStack } from "@chakra-ui/react"
+import { Link } from 'react-router-dom';
+import { Box, Button, Heading, HStack, Image, Stack, Text, VStack } from "@chakra-ui/react"
 import "./Home.css"
 import vg from '../../assets/images/logo2.png'
 import vd from '../../assets/videos/intro.mp4'
