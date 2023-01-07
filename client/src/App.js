@@ -1,7 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
+import ForgetPassword from './components/Auth/ForgetPassword';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
+import ResetPassword from './components/Auth/ResetPassword';
 import Courses from './components/Courses/Courses';
 import Home from './components/Home/Home';
 import Footer from './components/Layout/Footer/Footer';
@@ -15,6 +17,8 @@ function App() {
         <Route path="/courses" element={<Courses />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/forget-password" element={<ForgetPassword />} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
       </Routes>
       <Footer />
     </Router>
