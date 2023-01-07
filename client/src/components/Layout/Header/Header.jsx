@@ -47,7 +47,7 @@ const Header = () => {
                             <LinkButton url="/courses" title="Khóa học" onClose={onClose} />
                             <LinkButton url="/request" title="Yêu cầu một khóa học" onClose={onClose} />
                             <LinkButton url="/contact" title="Liên hệ" onClose={onClose} />
-                            <LinkButton url="/about" title="Thông tin" onClose={onClose} />
+                            <LinkButton url="/about" title="Thông tin về chúng tôi" onClose={onClose} />
                         </VStack>
                         <HStack
                             justifyContent={"space-evenly"}
