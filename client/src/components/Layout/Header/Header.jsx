@@ -87,7 +87,7 @@ const Header = () => {
                                         <Button colorScheme={"blue"}>Đăng nhập</Button>
                                     </Link>
                                     <p>hoặc</p>
-                                    <Link onClick={onClose} to="/signup">
+                                    <Link onClick={onClose} to="/register">
                                         <Button colorScheme={"blue"}>Đăng ký</Button>
                                     </Link>
 
