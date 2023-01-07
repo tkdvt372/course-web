@@ -23,6 +23,7 @@ const Footer = () => {
                     spacing={["2", "10"]}
                     justifyContent="center"
                     fontSize={50}
+                    color={'white'}
                 >
                     <a href="https://www.facebook.com/dvt372/"
                         target={"_blank"} rel="noreferrer"

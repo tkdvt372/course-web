@@ -21,11 +21,8 @@ const Founder = () => (
         </VStack>
         <VStack justifyContent={"center"} alignItems={["center", "flex-start"]}>
             <Heading children={"Dương Văn Tuân"} size={["md", "xl"]} />
-            <Text whiteSpace={"pre"} textAlign={["center", "left"]} children={`Xin chào, tôi là một full-stack developer. Nhiệm vụ của tôi là cung cấp những khoá học với giá hợp lý cho cộng đồng IT Việt Nam.`} />
+            <Text textAlign={["center", "left"]} children={`Xin chào, tôi là một full-stack developer. Nhiệm vụ của tôi là cung cấp những khoá học với giá hợp lý cho cộng đồng IT Việt Nam.`} />
         </VStack>
-        <Box h={"sm"} p={"4"}>
-            <Text>{ }</Text>
-        </Box>
     </Stack>
 )
 
@@ -66,7 +63,7 @@ const About = () => {
                 </Text>
                 <Link to={'/subscribe'}>
                     <Button variant={"ghost"} colorScheme={"blue"}>
-                        Đường lối phát triển
+                        Tham gia ngay
                     </Button>
                 </Link>
             </Stack>
