@@ -14,7 +14,7 @@ const LinkButton = ({ url = "/", title = "Home", onClose }) => (
 );
 const Header = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
-    const isAuthenticated = false;
+    const isAuthenticated = true;
     const user = {
         role: "admin"
     }
@@ -24,7 +24,7 @@ const Header = () => {
     }
     return (
         <>
-            <ColorModeSwitcher />
+            <ColorModeSwitcher zIndex={99} />
             <Button
                 colorScheme={"blue"}
                 width="12"
@@ -34,8 +34,9 @@ const Header = () => {
                 top={"6"}
                 left={"6"}
                 onClick={onOpen}
+                zIndex={99}
             >
-                <RiMenu5Fill />
+                <RiMenu5Fill/>
             </Button>
             <Drawer placement='left' onClose={onClose} isOpen={isOpen} >
                 <DrawerOverlay backdropFilter={"blur(1px)"} />
