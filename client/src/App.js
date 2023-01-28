@@ -17,6 +17,12 @@ import PaymentSuccess from "./components/Payments/PaymentSuccess";
 import PaymentFail from "./components/Payments/PaymentFail";
 import CoursePage from './components/CoursePage/CoursePage';
 import Profile from './components/Profile/Profile';
+import UpdateProfile from './components/Profile/UpdateProfile';
+import ChangePassword from './components/Profile/ChangePassword';
+import Dashboard from './components/Admin/Dashboard/Dashboard';
+import CreateCourse from './components/Admin/CreateCourse/CreateCourse';
+import AdminCourses from './components/Admin/AdminCourses/AdminCourses';
+import Users from './components/Admin/Users/Users';
 
 function App() {
   window.addEventListener("contextmenu", (e) => {
@@ -32,6 +38,8 @@ function App() {
         <Route path="/course/:id" element={<CoursePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/update-profile" element={<UpdateProfile />} />
+        <Route path="/change-password" element={<ChangePassword />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forget-password" element={<ForgetPassword />} />
         <Route path="/reset-password/:token" element={<ResetPassword />} />
@@ -42,6 +50,15 @@ function App() {
         <Route path="/*" element={<NotFound />} />
         <Route path="/paymentsuccess" element={< PaymentSuccess />} />
         <Route path="/paymentfail" element={<PaymentFail />} />
+
+        {/* Admin */}
+
+        <Route path="/admin/dashboard" element={<Dashboard />} />
+        <Route path="/admin/create-course" element={<CreateCourse />} />
+        <Route path="/admin/admin-courses" element={<AdminCourses />} />
+        <Route path="/admin/users" element={<Users />} />
+
+
       </Routes>
       <Footer />
     </Router>
