@@ -1,13 +1,14 @@
 import React from 'react'
 import "./Header.css"
 import { ColorModeSwitcher } from "../../../ColorModeSwitcher"
-import { Button, Drawer, DrawerBody, DrawerContent, DrawerHeader, DrawerOverlay, HStack, Link, useDisclosure, VStack } from '@chakra-ui/react'
+import { Link } from 'react-router-dom';
+import { Button, Drawer, DrawerBody, DrawerContent, DrawerHeader, DrawerOverlay, HStack, useDisclosure, VStack } from '@chakra-ui/react'
 import { RiDashboardFill, RiLogoutBoxLine, RiMenu5Fill } from "react-icons/ri"
 // import { FaHome } from 'react-icons/fa'
 
 
-const LinkButton = ({ url = "/", title = "Home" }) => (
-    <Link to={url}>
+const LinkButton = ({ url = "/", title = "Home", onClose }) => (
+    <Link onClick={onClose} to={url}>
         <Button variant={"ghost"}>{title}</Button>
     </Link>
 );
@@ -17,12 +18,13 @@ const Header = () => {
     const user = {
         role: "admin"
     }
-    const logoutHandler = ()=>{
+    const logoutHandler = () => {
         console.log("Logout");
+        onClose()
     }
     return (
         <>
-            <ColorModeSwitcher />
+            <ColorModeSwitcher zIndex={99} />
             <Button
                 colorScheme={"blue"}
                 width="12"
@@ -32,8 +34,9 @@ const Header = () => {
                 top={"6"}
                 left={"6"}
                 onClick={onOpen}
+                zIndex={99}
             >
-                <RiMenu5Fill />
+                <RiMenu5Fill/>
             </Button>
             <Drawer placement='left' onClose={onClose} isOpen={isOpen} >
                 <DrawerOverlay backdropFilter={"blur(1px)"} />
@@ -41,11 +44,11 @@ const Header = () => {
                     <DrawerHeader borderBottomWidth={"1px"}>KHÓA HỌC DVT</DrawerHeader>
                     <DrawerBody>
                         <VStack spacing={"4"} alignItems="flex-start">
-                            <LinkButton url="/" title="Trang chủ" />
-                            <LinkButton url="/courses" title="Khóa học" />
-                            <LinkButton url="/request" title="Yêu cầu một khóa học" />
-                            <LinkButton url="/contact" title="Liên hệ" />
-                            <LinkButton url="/about" title="Thông tin" />
+                            <LinkButton url="/" title="Trang chủ" onClose={onClose} />
+                            <LinkButton url="/courses" title="Khóa học" onClose={onClose} />
+                            <LinkButton url="/request" title="Yêu cầu một khóa học" onClose={onClose} />
+                            <LinkButton url="/contact" title="Liên hệ" onClose={onClose} />
+                            <LinkButton url="/about" title="Thông tin về chúng tôi" onClose={onClose} />
                         </VStack>
                         <HStack
                             justifyContent={"space-evenly"}
@@ -55,7 +58,7 @@ const Header = () => {
                             {isAuthenticated ? (<>
                                 <VStack>
                                     <HStack>
-                                        <Link to="/profile">
+                                        <Link onClick={onClose} to="/profile">
                                             <Button variant={"ghost"} colorScheme={"blue"}>Hồ sơ</Button>
                                         </Link>
                                         <Link to="/logout">
@@ -63,14 +66,14 @@ const Header = () => {
                                                 variant={"ghost"}
                                                 colorScheme={"blue"}
                                                 onClick={logoutHandler}
-                                                >
+                                            >
                                                 <RiLogoutBoxLine />
                                                 Đăng xuất
                                             </Button>
                                         </Link>
                                     </HStack>
                                     {
-                                        user && user.role === "admin" && <Link to="/admin/dashboard">
+                                        user && user.role === "admin" && <Link onClick={onClose} to="/admin/dashboard">
                                             <Button colorScheme={"purple"} variant="ghost">
                                                 <RiDashboardFill style={{ margin: "4px" }} />
                                                 Bảng điều khiển
@@ -81,11 +84,11 @@ const Header = () => {
 
                             </>) :
                                 (<>
-                                    <Link to="/login">
+                                    <Link onClick={onClose} to="/login">
                                         <Button colorScheme={"blue"}>Đăng nhập</Button>
                                     </Link>
                                     <p>hoặc</p>
-                                    <Link to="/signup">
+                                    <Link onClick={onClose} to="/register">
                                         <Button colorScheme={"blue"}>Đăng ký</Button>
                                     </Link>
 

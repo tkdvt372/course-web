@@ -1,5 +1,6 @@
 import React from 'react'
-import { Box, Button, Heading, HStack, Image, Link, Stack, Text, VStack } from "@chakra-ui/react"
+import { Link } from 'react-router-dom';
+import { Box, Button, Heading, HStack, Image, Stack, Text, VStack } from "@chakra-ui/react"
 import "./Home.css"
 import vg from '../../assets/images/logo2.png'
 import vd from '../../assets/videos/intro.mp4'
@@ -41,9 +42,13 @@ const Home = () => {
         </HStack>
       </Box>
       <div className="container2">
-        <video src={vd} autoPlay={true} controls controlsList="nodownload nofullscreen noremoteplayback"
-        disablePictureInPicture disableRemotePlayback>
-
+        <video
+          src={vd}
+          autoPlay={true}
+          controls
+          controlsList="nodownload nofullscreen noremoteplayback"
+          disablePictureInPicture
+          disableRemotePlayback>
         </video>
       </div>
 
