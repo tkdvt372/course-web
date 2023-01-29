@@ -1,3 +1,5 @@
 # course-web
-Bài tập lớn môn Công Nghệ Phần Mềm <br>
-Tác giả: Dương Văn Tuân
+ develop
+Author: Dương Văn Tuân <br>
+Class: CNTT 14-04<br>
+University: Đại học Đại Nam
