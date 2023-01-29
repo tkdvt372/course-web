@@ -18,8 +18,9 @@ const Sidebar = () => {
       p="16"
       boxShadow={'-2px 0 10px rgba(107,70,193,0.5)'}
       position={'relative'}
+      pl={5}
     >
-      <VStack id='slide-bar' position={'fixed'} mt={"5"} >
+      <VStack id='slide-bar' alignItems={"flex-start"} position={'fixed'} mt={"5"} >
         <LinkButton
           Icon={RiDashboardFill}
           text="Bảng điều khiển"
