@@ -5,26 +5,29 @@ import { Course } from "../models/Course.js";
 import { sendToken } from "../utils/sendToken.js";
 import { sendEmail } from "../utils/sendEmail.js";
 import crypto from "crypto";
+import cloudinary from "cloudinary";
+import getDataUri from "../utils/dataUri.js";
 
 //Register
 export const Register = catchAsyncError(async (req, res, next) => {
     const { name, email, password } = req.body;
-    // const file = req.file;
-    if (!name || !email || !password)
+    const file = req.file;
+
+    if (!name || !email || !password || !file)
         return next(new ErrorHandler("Vui lòng nhập đầy đủ thông tin!", 400));
     let user = await User.findOne({ email });
     if (user) {
         return next(new ErrorHandler("Tài khoản của bạn đã tồn tại", 409));
     }
-
-    //upload file
+    const fileUri = getDataUri(file);
+    const mycloud = await cloudinary.v2.uploader.upload(fileUri.content);
     user = await User.create({
         name,
         email,
         password,
         avatar: {
-            public_id: "temp_id",
-            url: "temp_url",
+            public_id: mycloud.public_id,
+            url: mycloud.secure_url,
         },
     });
 
@@ -104,6 +107,16 @@ export const updateProfile = catchAsyncError(async (req, res, next) => {
 
 //update profile picture
 export const updateProfilePicture = catchAsyncError(async (req, res, next) => {
+    const user = await User.findById(req.user._id);
+    const file = req.file;
+    const fileUri = getDataUri(file);
+    await cloudinary.v2.uploader.destroy(user.avatar.public_id);
+    const mycloud = await cloudinary.v2.uploader.upload(fileUri.content);
+    user.avatar = {
+        public_id: mycloud.public_id,
+        url: mycloud.secure_url,
+    };
+    await user.save();
     res.status(200).json({
         success: true,
         message: "Cập nhật ảnh đại diện thành công",
@@ -195,5 +208,54 @@ export const removeFromPlaylist = catchAsyncError(async (req, res, next) => {
     res.status(200).json({
         success: true,
         message: "Bỏ yêu thích thành công!",
+    });
+});
+export const deleteMyProfile = catchAsyncError(async (req, res, next) => {
+    const user = await User.findById(req.user._id);
+
+    await cloudinary.v2.uploader.destroy(user.avatar.public_id);
+
+    await user.remove();
+    res.status(200)
+        .cookie("token", null, {
+            expires: new Date(Date.now()),
+        })
+        .json({
+            success: true,
+            message: "Xoá hồ sơ thành công",
+        });
+});
+
+//* ===================ADMIN CONTROLLER============================
+export const getAllUsers = catchAsyncError(async (req, res, next) => {
+    const users = await User.find({});
+    res.status(200).json({
+        success: true,
+        users,
+    });
+});
+
+export const updateUserRole = catchAsyncError(async (req, res, next) => {
+    const user = await User.findById(req.params.id);
+    if (!user) return next(ErrorHandler("Không tìm thấy tài khoản", 404));
+    if (user.role === "user") user.role = "admin";
+    else user.role = "user";
+    await user.save();
+
+    res.status(200).json({
+        success: true,
+        message: "Thay đổi thành công",
+    });
+});
+
+export const deleteUser = catchAsyncError(async (req, res, next) => {
+    const user = await User.findById(req.params.id);
+    if (!user) return next(ErrorHandler("Không tìm thấy tài khoản", 404));
+    await cloudinary.v2.uploader.destroy(user.avatar.public_id);
+
+    await user.remove();
+    res.status(200).json({
+        success: true,
+        message: "Xoá tài khoản thành công",
     });
 });
