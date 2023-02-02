@@ -16,37 +16,35 @@ import { isAuthenticated } from "../middlewares/auth.js";
 const router = express.Router();
 
 //Register a new user
-router.route("/register").post(Register);
+router.post("/register", Register);
 
 //Login
-router.route("/login").post(Login);
+router.post("/login", Login);
 
 //Logout
-router.route("/logout").get(Logout);
+router.get("/logout",Logout);
 
 //Get my profile
-router.route("/me").get(isAuthenticated, getMyProfile);
+router.get("/me",isAuthenticated, getMyProfile);
 
 //Change password
-router.route("/change-password").put(isAuthenticated, changePassword);
+router.put("/change-password",isAuthenticated, changePassword);
 
 //Update profile
-router.route("/update-profile").put(isAuthenticated, updateProfile);
+router.put("/update-profile",isAuthenticated, updateProfile);
 
 //Update profile picture
-router
-    .route("/update-profile-picture")
-    .put(isAuthenticated, updateProfilePicture);
+router.put("/update-profile-picture", isAuthenticated, updateProfilePicture);
 
 //Forget password
-router.route("/forget-password").post(forgetPassword);
+router.post("/forget-password",forgetPassword);
 
 //Reset password
-router.route("/reset-password/:token").put(resetPassword);
+router.put("/reset-password/:token",resetPassword);
 
 //Add playlist
-router.route("/add-to-playlist").post(isAuthenticated, addToPlaylist);
+router.post("/add-to-playlist",isAuthenticated, addToPlaylist);
 //Remove from playlist
-router.route("/remove-from-playlist").post(isAuthenticated, removeFromPlaylist);
+router.post("/remove-from-playlist",isAuthenticated, removeFromPlaylist);
 
 export default router;
