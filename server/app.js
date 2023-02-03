@@ -3,7 +3,10 @@ import { config } from "dotenv";
 import ErrorMiddleware from "./middlewares/Error.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-
+import course from "./routes/CourseRoute.js";
+import user from "./routes/UserRoute.js";
+import payment from "./routes/PaymentRoute.js";
+import other from "./routes/otherRoute.js";
 config({
     path: "./config/config.env",
 });
@@ -26,10 +29,7 @@ app.use(
 );
 
 //Importing and using Routes
-import course from "./routes/CourseRoute.js";
-import user from "./routes/UserRoute.js";
-import payment from "./routes/PaymentRoute.js";
-import other from "./routes/otherRoute.js";
+
 app.use("/api/v1", course);
 app.use("/api/v1", user);
 app.use("/api/v1", payment);
