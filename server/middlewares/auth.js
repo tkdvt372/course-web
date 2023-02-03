@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
-import { catchAsyncError } from "./CatchAsyncError.js";
-import ErrorHandler from "../utils/ErrorHandler.js";
 import { User } from "../models/User.js";
+import { catchAsyncError } from "./CatchAsyncError.js";
+import ErrorHandler from "../utils/errorHandler.js";
 
 export const isAuthenticated = catchAsyncError(async (req, res, next) => {
     const { token } = req.cookies;
@@ -15,14 +15,16 @@ export const isAuthenticated = catchAsyncError(async (req, res, next) => {
 
 export const authorizeAdmin = (req, res, next) => {
     if (req.user.role !== "admin")
-        return next(new ErrorHandler("Chức năng chỉ dành cho quản trị viên", 403));
-    next()
-
+        return next(
+            new ErrorHandler("Chức năng chỉ dành cho quản trị viên", 403)
+        );
+    next();
 };
 
 export const authorizeSubscriber = (req, res, next) => {
     if (req.user.subscription.status !== "active" && req.user.role !== "admin")
-        return next(new ErrorHandler("Chỉ thành viên DVT mới có quyền truy cập", 403));
-    next()
-
+        return next(
+            new ErrorHandler("Chỉ thành viên DVT mới có quyền truy cập", 403)
+        );
+    next();
 };

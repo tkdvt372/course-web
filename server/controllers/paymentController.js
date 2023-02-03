@@ -1,6 +1,6 @@
 import { catchAsyncError } from "../middlewares/CatchAsyncError.js";
 import paypal from "paypal-rest-sdk";
-import ErrorHandler from "../utils/ErrorHandler.js";
+import ErrorHandler from "../utils/errorHandler.js";
 import { User } from "../models/User.js";
 export const buySubscription = catchAsyncError(async (req, res, next) => {
     const user = await User.findById(req.user._id);
