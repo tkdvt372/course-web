@@ -1,6 +1,6 @@
 import express from "express";
 import { config } from "dotenv";
-import ErrorMiddleware from "./middlewares/Error.js";
+import ErrorMiddleware from "./middlewares/ErrorHandler.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 
@@ -35,8 +35,8 @@ app.use("/api/v1", user);
 app.use("/api/v1", payment);
 app.use("/api/v1", other);
 
-export default app;
-app.use("/", (req, res, next) => {
-    res.send("<h1>Máy chủ hoạt động</h1>");
+app.use("/", (req, res) => {
+    res.send({ message: "Duong Van Tuan" });
 });
 app.use(ErrorMiddleware);
+export default app;
