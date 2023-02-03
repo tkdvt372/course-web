@@ -19,3 +19,10 @@ export const authorizeAdmin = (req, res, next) => {
     next()
 
 };
+
+export const authorizeSubscriber = (req, res, next) => {
+    if (req.user.subscription.status !== "active" && req.user.role !== "admin")
+        return next(new ErrorHandler("Chỉ thành viên DVT mới có quyền truy cập", 403));
+    next()
+
+};

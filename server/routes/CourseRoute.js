@@ -8,7 +8,11 @@ import {
     getCourseLecture,
 } from "../controllers/courseController.js";
 import singleUpload from "../middlewares/multer.js";
-import { authorizeAdmin, isAuthenticated } from "../middlewares/auth.js";
+import {
+    authorizeAdmin,
+    authorizeSubscriber,
+    isAuthenticated,
+} from "../middlewares/auth.js";
 
 const router = express.Router();
 
@@ -25,7 +29,12 @@ router.post(
 );
 
 //add lecture, delete Courses, get course detail
-router.get("/course/:id", isAuthenticated, getCourseLecture);
+router.get(
+    "/course/:id",
+    isAuthenticated,
+    authorizeSubscriber,
+    getCourseLecture
+);
 
 router.post(
     "/course/:id",
