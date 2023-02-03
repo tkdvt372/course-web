@@ -35,8 +35,8 @@ app.use("/api/v1", user);
 app.use("/api/v1", payment);
 app.use("/api/v1", other);
 
-export default app;
-app.use("/", (req, res, next) => {
-    res.send("<h1>Máy chủ hoạt động</h1>");
+app.use("/", (req, res) => {
+    res.send({ message: "Duong Van Tuan" });
 });
 app.use(ErrorMiddleware);
+export default app;
