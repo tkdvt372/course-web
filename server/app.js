@@ -15,6 +15,12 @@ app.use(express.urlencoded({
     extended:true
 }))
 app.use(cookieParser());
+app.use(cors({
+    origin:process.env.FRONTEND_URL,
+    credentials:true,
+    method: ["GET","POST","PUT","DELETE"],
+    
+}))
 
 
 //Importing and using Routes
@@ -22,7 +28,7 @@ import course from "./routes/CourseRoute.js";
 import user from "./routes/UserRoute.js";
 import payment from "./routes/PaymentRoute.js";
 import other from "./routes/otherRoute.js";
-
+import cors from "cors"
 app.use("/api/v1", course);
 app.use("/api/v1", user);
 app.use("/api/v1", payment);
@@ -30,5 +36,7 @@ app.use("/api/v1", other);
 
 
 export default app;
-
+app.use("/",(req, res, next) => {
+    res.send("<h1>Máy chủ hoạt động</h1>")
+})
 app.use(ErrorMiddleware);
