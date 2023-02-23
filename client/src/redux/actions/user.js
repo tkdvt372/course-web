@@ -51,7 +51,6 @@ export const logout = () => async dispatch => {
 export const register = formData => async dispatch => {
   try {
     dispatch({ type: 'registerRequest' });
-
     const { data } = await axios.post(`${server}/register`, formData, {
       headers: {
         'Content-type': 'multipart/form-data',

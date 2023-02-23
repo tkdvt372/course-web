@@ -82,7 +82,7 @@ const Courses = () => {
   };
   const dispatch = useDispatch();
   const categories = [
-    'web development',
+    'Phát triển web',
     'Khoa học dữ liệu',
     'Phát triển ứng dụng di động',
     'Kỹ thuật phần mềm',
@@ -138,7 +138,6 @@ const Courses = () => {
         {courses.length > 0 ? (
           courses.map(item => (
             <Course
-              
               key={item._id}
               title={item.title}
               description={item.description}

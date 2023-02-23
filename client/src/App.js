@@ -60,7 +60,14 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/courses" element={<Courses />} />
-            <Route path="/course/:id" element={<CoursePage />} />
+            <Route
+              path="/course/:id"
+              element={
+                <ProtectedRoute isAuthenticated={isAuthenticated}>
+                  <CoursePage user={user} />
+                </ProtectedRoute>
+              }
+            />
             <Route
               path="/login"
               element={

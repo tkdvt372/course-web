@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Button,
   Container,
@@ -11,6 +11,10 @@ import {
 } from '@chakra-ui/react';
 import cursor from '../../../assets/images/cursor.png';
 import Sidebar from '../Sidebar';
+import { useDispatch, useSelector } from 'react-redux';
+import { createCourse } from '../../../redux/actions/admin.js';
+import toast from 'react-hot-toast';
+
 const categories = [
   'Phát triển web',
   'Khoa học dữ liệu',
@@ -21,11 +25,12 @@ const categories = [
 const CreateCourse = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [createBy, setCreateBy] = useState('');
+  const [createdBy, setCreatedBy] = useState('');
   const [category, setCategory] = useState('');
   const [image, setImage] = useState('');
   const [imagePrev, setImagePrev] = useState('');
-
+  const dispatch = useDispatch();
+  const { loading, error, message } = useSelector(state => state.admin);
   const changeImageHandler = e => {
     const file = e.target.files[0];
     const reader = new FileReader();
@@ -35,6 +40,28 @@ const CreateCourse = () => {
       setImage(file);
     };
   };
+
+  const submitHandler = e => {
+    e.preventDefault();
+    const myForm = new FormData();
+    myForm.append('title', title);
+    myForm.append('description', description);
+    myForm.append('category', category);
+    myForm.append('createdBy', createdBy);
+    myForm.append('file', image);
+    console.log(category);
+    dispatch(createCourse(myForm));
+  };
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+      dispatch({ type: 'clearError' });
+    }
+    if (message) {
+      toast.success(message);
+      dispatch({ type: 'clearMessage' });
+    }
+  }, [dispatch, error, loading, message]);
 
   return (
     <Grid
@@ -46,7 +73,7 @@ const CreateCourse = () => {
     >
       <Sidebar />
       <Container py="16">
-        <form>
+        <form onSubmit={submitHandler}>
           <Heading
             textTransform={'uppercase'}
             children="Tạo một khoá học"
@@ -64,14 +91,14 @@ const CreateCourse = () => {
             <Input
               value={description}
               onChange={e => setDescription(e.target.value)}
-              placeholder="Tiêu đề"
+              placeholder="Mô tả"
               type={'text'}
               focusBorderColor="purple.300"
             />
             <Input
-              value={createBy}
-              onChange={e => setCreateBy(e.target.value)}
-              placeholder="Tiêu đề"
+              value={createdBy}
+              onChange={e => setCreatedBy(e.target.value)}
+              placeholder="Tên giảng viên"
               type={'text'}
               focusBorderColor="purple.300"
             />
@@ -106,9 +133,16 @@ const CreateCourse = () => {
             />
 
             {imagePrev && (
-              <Image src={imagePrev} boxSize={64} objectFit={"contain"}/>
+              <Image src={imagePrev} boxSize={64} objectFit={'contain'} />
             )}
-            <Button w={"full"} colorScheme={"purple"} type="submit">Tạo</Button>
+            <Button
+              isLoading={loading}
+              w={'full'}
+              colorScheme={'purple'}
+              type="submit"
+            >
+              Tạo
+            </Button>
           </VStack>
         </form>
       </Container>
