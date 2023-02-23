@@ -14,6 +14,8 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { RiDashboardFill, RiLogoutBoxLine, RiMenu5Fill } from 'react-icons/ri';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../../redux/actions/user';
 // import { FaHome } from 'react-icons/fa'
 
 const LinkButton = ({ url = '/', title = 'Home', onClose }) => (
@@ -23,8 +25,9 @@ const LinkButton = ({ url = '/', title = 'Home', onClose }) => (
 );
 const Header = ({isAuthenticated = false,user}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const dispatch = useDispatch()
   const logoutHandler = () => {
-    console.log('Logout');
+    dispatch(logout())
     onClose();
   };
   return (
@@ -78,7 +81,7 @@ const Header = ({isAuthenticated = false,user}) => {
                           Hồ sơ
                         </Button>
                       </Link>
-                      <Link to="/logout">
+                      <Link to="/login">
                         <Button
                           variant={'ghost'}
                           colorScheme={'blue'}

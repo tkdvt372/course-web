@@ -9,7 +9,7 @@ import {
 
 const router = express.Router();
 //Buy subscription
-router.post("/subscription", isAuthenticated, buySubscription);
+router.get("/subscription",isAuthenticated, buySubscription);
 //Buy subscription success
 router.get("/success", isAuthenticated, buySubscriptionSuccess);
 //Buy subscription fail

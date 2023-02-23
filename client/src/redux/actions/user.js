@@ -29,9 +29,56 @@ export const loadUser = () => async dispatch => {
     const { data } = await axios.get(`${server}/me`, {
       withCredentials: true,
     });
-    console.log(data.user);
     dispatch({ type: 'loadUserSuccess', payload: data.user });
   } catch (error) {
     dispatch({ type: 'loadUserFail', payload: error.response.data.message });
+  }
+};
+
+export const logout = () => async dispatch => {
+  try {
+    dispatch({ type: 'logoutRequest' });
+
+    const { data } = await axios.get(`${server}/logout`, {
+      withCredentials: true,
+    });
+    dispatch({ type: 'logoutSuccess', payload: data.message });
+  } catch (error) {
+    dispatch({ type: 'logoutFail', payload: error.response.data.message });
+  }
+};
+
+export const register = formData => async dispatch => {
+  try {
+    dispatch({ type: 'registerRequest' });
+
+    const { data } = await axios.post(`${server}/register`, formData, {
+      headers: {
+        'Content-type': 'multipart/form-data',
+      },
+      withCredentials: true,
+    });
+
+    dispatch({ type: 'registerSuccess', payload: data });
+  } catch (error) {
+    dispatch({ type: 'registerFail', payload: error.response.data.message });
+  }
+};
+
+export const buySubscription = (total, title, sku) => async dispatch => {
+  try {
+    dispatch({ type: 'buySubscriptionRequest' });
+    const { data } = await axios.get(
+      `${server}/subscription?total=${total}&title=${title}&sku=${sku}`,
+      {
+        withCredentials: true,
+      }
+    );
+    dispatch({ type: 'buySubscriptionSuccess', payload: data.url });
+  } catch (error) {
+    dispatch({
+      type: 'buySubscriptionFail',
+      payload: error.response.data.message,
+    });
   }
 };

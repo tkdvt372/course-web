@@ -7,5 +7,6 @@
         "khoá"
     ],
     "commentTranslate.source": "Google",
-    "commentTranslate.multiLineMerge": true
+    "commentTranslate.multiLineMerge": true,
+    "commentTranslate.hover.enabled": true
 }

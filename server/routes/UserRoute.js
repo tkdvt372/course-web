@@ -58,7 +58,7 @@ router.put("/reset-password/:token", resetPassword);
 //Add playlist
 router.post("/add-to-playlist", isAuthenticated, addToPlaylist);
 //Remove from playlist
-router.post("/remove-from-playlist", isAuthenticated, removeFromPlaylist);
+router.delete("/remove-from-playlist", isAuthenticated, removeFromPlaylist);
 
 //*******Admin route*******//
 

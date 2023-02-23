@@ -3,10 +3,7 @@ import { config } from "dotenv";
 import ErrorMiddleware from "./middlewares/Error.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import course from "./routes/CourseRoute.js";
-import user from "./routes/UserRoute.js";
-import payment from "./routes/PaymentRoute.js";
-import other from "./routes/otherRoute.js";
+
 config({
     path: "./config/config.env",
 });
@@ -24,19 +21,24 @@ app.use(
     cors({
         origin: process.env.FRONTEND_URL,
         credentials: true,
-        method: ["GET", "POST", "PUT", "DELETE"],
+        methods: ["GET", "POST", "PUT", "DELETE"],
     })
 );
 
 //Importing and using Routes
-
+import course from "./routes/CourseRoute.js";
+import user from "./routes/UserRoute.js";
+import payment from "./routes/PaymentRoute.js";
+import other from "./routes/otherRoute.js";
 app.use("/api/v1", course);
 app.use("/api/v1", user);
 app.use("/api/v1", payment);
 app.use("/api/v1", other);
 
-app.use("/", (req, res) => {
-    res.send({ message: "Duong Van Tuan" });
-});
+app.get("/", (req, res) =>
+    res.send(
+        `<h1>Site is Working. click <a href=${process.env.FRONTEND_URL}>here</a> to visit frontend.</h1>`
+    )
+);
 app.use(ErrorMiddleware);
 export default app;

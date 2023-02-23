@@ -5,6 +5,7 @@ import ErrorHandler from "../utils/errorHandler.js";
 
 export const isAuthenticated = catchAsyncError(async (req, res, next) => {
     const { token } = req.cookies;
+    console.log("token:",token)
     if (!token) return next(new ErrorHandler("Lỗi xác minh đăng nhập", 401));
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);

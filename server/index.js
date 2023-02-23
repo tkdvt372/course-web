@@ -4,7 +4,7 @@ import cloudinary from "cloudinary";
 import paypal from "paypal-rest-sdk";
 import nodeCron from "node-cron";
 import { Stats } from "./models/Stats.js";
-import http from "http";
+
 connectDb();
 cloudinary.v2.config({
     cloud_name: process.env.CLOUDINARY_CLIENT_NAME,
@@ -25,7 +25,7 @@ nodeCron.schedule("0 0 0 1 * *", async () => {
         console.log(error);
     }
 });
-var server = http.createServer(app);
-server.listen(process.env.PORT, () => {
+
+app.listen(process.env.PORT, () => {
     console.log("Server listening on port " + process.env.PORT);
 });
