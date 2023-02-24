@@ -92,7 +92,7 @@ const Profile = ({ user }) => {
             <Text children={user.email} />
           </HStack>
           <HStack>
-            <Text children="Được tạo" fontWeight={'bold'} />
+            <Text children="Ngày khởi tạo" fontWeight={'bold'} />
             <Text children={format(new Date(user.createdAt), 'dd/MM/yyyy')} />
           </HStack>
           {user.role !== 'admin' && (
