@@ -32,7 +32,16 @@ import { fileUploadCss } from '../Auth/Register';
 import { toast } from 'react-hot-toast';
 const Profile = ({ user }) => {
   const dispatch = useDispatch();
-  const { isOpen, onClose, onOpen } = useDisclosure();
+  const {
+    isOpen: isOpenImage,
+    onClose: onCloseImage,
+    onOpen: onOpenImage,
+  } = useDisclosure();
+  const {
+    isOpen: isOpenCancel,
+    onClose: onCloseCancel,
+    onOpen: onOpenCancel,
+  } = useDisclosure();
   const { loading, message, error } = useSelector(state => state.profile);
 
   const removeFromPlaylistHandler = async id => {
@@ -69,7 +78,7 @@ const Profile = ({ user }) => {
       >
         <VStack>
           <Avatar boxSize={'48'} src={user.avatar.url} />
-          <Button onClick={onOpen} colorScheme={'blue'} variant={'ghost'}>
+          <Button onClick={onOpenImage} colorScheme={'blue'} variant={'ghost'}>
             Chọn ảnh
           </Button>
         </VStack>
@@ -92,7 +101,12 @@ const Profile = ({ user }) => {
                 <Stack>
                   <HStack>
                     <Text children="Thành viên:" fontWeight={'bold'} />
-                    <Button color={'blue.500'} variant="unstyled">
+                    <Button
+                      onClick={onOpenCancel}
+                      isLoading={loading}
+                      color={'blue.500'}
+                      variant="unstyled"
+                    >
                       Huỷ đăng ký
                     </Button>
                   </HStack>
@@ -159,13 +173,13 @@ const Profile = ({ user }) => {
           ))}
         </Stack>
       )}
-
       <ChangePhotoBox
-        isOpen={isOpen}
-        onClose={onClose}
+        isOpen={isOpenImage}
+        onClose={onCloseImage}
         changeImageSubmitHandler={changeImageSubmitHandler}
         loading={loading}
       />
+      <CancelSubscription isOpen={isOpenCancel} onClose={onCloseCancel} />
     </Container>
   );
 };
@@ -233,6 +247,32 @@ function ChangePhotoBox({
           <Button mr="3" onClick={closeHandler}>
             Huỷ
           </Button>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
+  );
+}
+
+function CancelSubscription({ isOpenCancel, onCloseCancel }) {
+  return (
+    <Modal
+      closeOnOverlayClick={false}
+      isOpen={isOpenCancel}
+      onClose={onCloseCancel}
+    >
+      <ModalOverlay />
+      <ModalContent>
+        <ModalHeader>Bạn chắc chắn muốn huỷ gói thành viên?</ModalHeader>
+        <ModalCloseButton />
+        <ModalBody pb={6}>
+          <Text children="Bạn sẽ được hoàn lại 50% số tiền nếu huỷ trong vòng 7 ngày!" />
+        </ModalBody>
+
+        <ModalFooter>
+          <Button colorScheme="blue" mr={3}>
+            Chắc chắn
+          </Button>
+          <Button onClick={onCloseCancel}>Thoát</Button>
         </ModalFooter>
       </ModalContent>
     </Modal>

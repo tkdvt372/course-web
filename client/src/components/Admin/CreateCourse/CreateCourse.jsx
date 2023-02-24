@@ -104,7 +104,7 @@ const CreateCourse = () => {
             />
             <Select
               focusBorderColor="purple.300"
-              value={category}
+              value={category && 'Phát triển web'}
               onChange={e => setCategory(e.target.value)}
             >
               {categories.map(category => (
